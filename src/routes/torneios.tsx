@@ -26,6 +26,8 @@ export const Route = createFileRoute("/torneios")({
       },
       { property: "og:title", content: "Torneios — VolleyOps" },
       { property: "og:description", content: "Agenda, inscrições e resultados dos torneios." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => (

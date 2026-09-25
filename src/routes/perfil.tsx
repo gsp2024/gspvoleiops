@@ -12,6 +12,8 @@ export const Route = createFileRoute("/perfil")({
     { name: "description", content: "Atualize seus dados pessoais e esportivos no VolleyOps." },
     { property: "og:title", content: "Meu perfil — VolleyOps" },
     { property: "og:description", content: "Dados pessoais e esportivos do usuário." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: () => <Protegido><Perfil /></Protegido>,
 });

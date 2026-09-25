@@ -25,6 +25,8 @@ export const Route = createFileRoute("/financeiro")({
       { name: "description", content: "Controle de cobranças, inadimplência, entradas, saídas e saldo do time." },
       { property: "og:title", content: "Financeiro — VolleyOps" },
       { property: "og:description", content: "Cobranças e fluxo de caixa do time de vôlei." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => (

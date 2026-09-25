@@ -13,6 +13,8 @@ export const Route = createFileRoute("/materiais")({
     { name: "description", content: "Estoque e movimentação dos materiais usados nos treinos." },
     { property: "og:title", content: "Materiais — VolleyOps" },
     { property: "og:description", content: "Controle de estoque dos materiais do time." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: () => <Protegido papeis={["gestora", "professor"]}><Materiais /></Protegido>,
 });

@@ -20,6 +20,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Visão geral do time de vôlei: finanças, atletas, turmas e torneios.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => (
@@ -158,7 +160,9 @@ function PainelGestora() {
               {atrasadas.length} {atrasadas.length === 1 ? "cobrança" : "cobranças"} em atraso
             </p>
             <p className="text-[11px] text-muted-foreground truncate">
-              {nome(atrasadas[0].atleta_id)} · vence {dataBR(atrasadas[0].vencimento)}
+              {atrasadas[0]
+                ? `${nome(atrasadas[0].atleta_id)} · vence ${dataBR(atrasadas[0].vencimento)}`
+                : ""}
             </p>
           </div>
           <Link

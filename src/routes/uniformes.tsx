@@ -14,6 +14,8 @@ export const Route = createFileRoute("/uniformes")({
     { name: "description", content: "Pedidos de uniforme por atleta, tamanho e situação de entrega." },
     { property: "og:title", content: "Uniformes — VolleyOps" },
     { property: "og:description", content: "Acompanhe pedidos e entregas de uniformes." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: () => <Protegido><Uniformes /></Protegido>,
 });
