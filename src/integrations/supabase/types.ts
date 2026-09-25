@@ -14,16 +14,430 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      cobrancas: {
+        Row: {
+          atleta_id: string
+          created_at: string
+          descricao: string
+          id: string
+          metodo: string | null
+          pago_em: string | null
+          status: string
+          torneio_id: string | null
+          turma_id: string | null
+          valor: number
+          vencimento: string
+        }
+        Insert: {
+          atleta_id: string
+          created_at?: string
+          descricao: string
+          id?: string
+          metodo?: string | null
+          pago_em?: string | null
+          status?: string
+          torneio_id?: string | null
+          turma_id?: string | null
+          valor?: number
+          vencimento: string
+        }
+        Update: {
+          atleta_id?: string
+          created_at?: string
+          descricao?: string
+          id?: string
+          metodo?: string | null
+          pago_em?: string | null
+          status?: string
+          torneio_id?: string | null
+          turma_id?: string | null
+          valor?: number
+          vencimento?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cobrancas_atleta_id_fkey"
+            columns: ["atleta_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cobrancas_torneio_id_fkey"
+            columns: ["torneio_id"]
+            isOneToOne: false
+            referencedRelation: "torneios"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cobrancas_turma_id_fkey"
+            columns: ["turma_id"]
+            isOneToOne: false
+            referencedRelation: "turmas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      inscricoes_torneio: {
+        Row: {
+          atleta_id: string
+          created_at: string
+          id: string
+          torneio_id: string
+        }
+        Insert: {
+          atleta_id: string
+          created_at?: string
+          id?: string
+          torneio_id: string
+        }
+        Update: {
+          atleta_id?: string
+          created_at?: string
+          id?: string
+          torneio_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "inscricoes_torneio_atleta_id_fkey"
+            columns: ["atleta_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "inscricoes_torneio_torneio_id_fkey"
+            columns: ["torneio_id"]
+            isOneToOne: false
+            referencedRelation: "torneios"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      materiais: {
+        Row: {
+          created_at: string
+          id: string
+          minimo: number
+          nome: string
+          quantidade: number
+          unidade: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          minimo?: number
+          nome: string
+          quantidade?: number
+          unidade?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          minimo?: number
+          nome?: string
+          quantidade?: number
+          unidade?: string
+        }
+        Relationships: []
+      }
+      matriculas: {
+        Row: {
+          atleta_id: string
+          created_at: string
+          id: string
+          turma_id: string
+        }
+        Insert: {
+          atleta_id: string
+          created_at?: string
+          id?: string
+          turma_id: string
+        }
+        Update: {
+          atleta_id?: string
+          created_at?: string
+          id?: string
+          turma_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "matriculas_atleta_id_fkey"
+            columns: ["atleta_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "matriculas_turma_id_fkey"
+            columns: ["turma_id"]
+            isOneToOne: false
+            referencedRelation: "turmas"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      movimentacoes_caixa: {
+        Row: {
+          categoria: string | null
+          created_at: string
+          data: string
+          descricao: string
+          id: string
+          tipo: string
+          valor: number
+        }
+        Insert: {
+          categoria?: string | null
+          created_at?: string
+          data?: string
+          descricao: string
+          id?: string
+          tipo: string
+          valor?: number
+        }
+        Update: {
+          categoria?: string | null
+          created_at?: string
+          data?: string
+          descricao?: string
+          id?: string
+          tipo?: string
+          valor?: number
+        }
+        Relationships: []
+      }
+      movimentacoes_material: {
+        Row: {
+          created_at: string
+          id: string
+          material_id: string
+          motivo: string | null
+          quantidade: number
+          tipo: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          material_id: string
+          motivo?: string | null
+          quantidade?: number
+          tipo: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          material_id?: string
+          motivo?: string | null
+          quantidade?: number
+          tipo?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "movimentacoes_material_material_id_fkey"
+            columns: ["material_id"]
+            isOneToOne: false
+            referencedRelation: "materiais"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      pedidos_uniforme: {
+        Row: {
+          atleta_id: string
+          created_at: string
+          id: string
+          item: string
+          quantidade: number
+          status: string
+          tamanho: string | null
+          valor: number
+        }
+        Insert: {
+          atleta_id: string
+          created_at?: string
+          id?: string
+          item: string
+          quantidade?: number
+          status?: string
+          tamanho?: string | null
+          valor?: number
+        }
+        Update: {
+          atleta_id?: string
+          created_at?: string
+          id?: string
+          item?: string
+          quantidade?: number
+          status?: string
+          tamanho?: string | null
+          valor?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pedidos_uniforme_atleta_id_fkey"
+            columns: ["atleta_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          data_nascimento: string | null
+          documento: string | null
+          email: string | null
+          foto_url: string | null
+          id: string
+          nome: string
+          onboarding_completo: boolean
+          posicao: string | null
+          telefone: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          data_nascimento?: string | null
+          documento?: string | null
+          email?: string | null
+          foto_url?: string | null
+          id: string
+          nome?: string
+          onboarding_completo?: boolean
+          posicao?: string | null
+          telefone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          data_nascimento?: string | null
+          documento?: string | null
+          email?: string | null
+          foto_url?: string | null
+          id?: string
+          nome?: string
+          onboarding_completo?: boolean
+          posicao?: string | null
+          telefone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      torneios: {
+        Row: {
+          created_at: string
+          data: string | null
+          id: string
+          local: string | null
+          nome: string
+          resultado: string | null
+          taxa_inscricao: number
+        }
+        Insert: {
+          created_at?: string
+          data?: string | null
+          id?: string
+          local?: string | null
+          nome: string
+          resultado?: string | null
+          taxa_inscricao?: number
+        }
+        Update: {
+          created_at?: string
+          data?: string | null
+          id?: string
+          local?: string | null
+          nome?: string
+          resultado?: string | null
+          taxa_inscricao?: number
+        }
+        Relationships: []
+      }
+      turmas: {
+        Row: {
+          ativa: boolean
+          capacidade: number
+          created_at: string
+          horario: string | null
+          id: string
+          local: string | null
+          nome: string
+          professor_id: string | null
+          valor_mensalidade: number
+        }
+        Insert: {
+          ativa?: boolean
+          capacidade?: number
+          created_at?: string
+          horario?: string | null
+          id?: string
+          local?: string | null
+          nome: string
+          professor_id?: string | null
+          valor_mensalidade?: number
+        }
+        Update: {
+          ativa?: boolean
+          capacidade?: number
+          created_at?: string
+          horario?: string | null
+          id?: string
+          local?: string | null
+          nome?: string
+          professor_id?: string | null
+          valor_mensalidade?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "turmas_professor_id_fkey"
+            columns: ["professor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      compartilha_turma: { Args: { _atleta_id: string }; Returns: boolean }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_gestora: { Args: never; Returns: boolean }
+      is_professor_da_turma: { Args: { _turma_id: string }; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "gestora" | "professor" | "atleta"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +564,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["gestora", "professor", "atleta"],
+    },
   },
 } as const
