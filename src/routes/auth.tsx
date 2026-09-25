@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/lib/auth";
 import { BotaoPrimario, CampoSelect, CampoTexto } from "@/components/kit";
+import gspLogo from "@/assets/gsp-logo.png.asset.json";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -86,15 +87,13 @@ function AuthPage() {
     <div className="min-h-screen bg-background text-foreground flex flex-col">
       <div className="mx-auto w-full max-w-sm px-5 py-10 flex-1 flex flex-col justify-center">
         <div className="flex items-center gap-2.5">
-          <div className="size-9 grid place-items-center bg-primary text-primary-foreground font-display text-xl rounded-[6px]">
-            V
-          </div>
+          <img src={gspLogo.url} alt="GSP — Garotas Super Poderosas" className="size-14 rounded-full object-cover" />
           <div className="leading-none">
             <p className="font-display text-[17px] tracking-wide">
-              VOLLEY<span className="text-primary">OPS</span>
+              GSP <span className="text-secondary">VOLLEY</span><span className="text-primary">OPS</span>
             </p>
             <p className="font-mono text-[9px] text-muted-foreground mt-1 uppercase tracking-[0.18em]">
-              Gestão do time
+              Garotas Super Poderosas
             </p>
           </div>
         </div>
@@ -163,7 +162,7 @@ function AuthPage() {
         </button>
 
         <p className="mt-6 font-mono text-[9px] text-muted-foreground leading-relaxed">
-          O primeiro cadastro do sistema recebe o perfil de gestora, com acesso total.
+          O primeiro cadastro confirmado recebe o perfil de gestora, com acesso total.
         </p>
       </div>
     </div>
