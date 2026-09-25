@@ -4,5 +4,5 @@
 - [x] Criar autenticação por e-mail/senha e Google
 - [x] Criar painéis de gestora, professor e atleta
 - [x] Criar gestão de atletas, turmas e torneios
-- [ ] Concluir financeiro, materiais, uniformes e perfil
-- [ ] Validar compilação e experiência em celular
+- [x] Concluir financeiro, materiais, uniformes e perfil
+- [x] Validar compilação e experiência em celular
