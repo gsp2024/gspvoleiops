@@ -5,43 +5,42 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system — "Quadra de comando".
- * Dark command-deck surface, court-yellow primary, status colors for
- * em dia / atrasado. All colors are tokens; never hardcode in components.
+ * Design system — GSP "Quadra de comando".
+ * Deep purple surfaces, electric pink and cyan drawn from the team logo.
  */
 
 :root {
   --radius: 10px;
 
-  --background: #0b1113;
-  --surface: #111a1e;
-  --surface-2: #162125;
-  --line: #243138;
-  --foreground: #eaf1ef;
-  --muted: #162125;
-  --muted-foreground: #8aa0a0;
+  --background: oklch(0.13 0.045 298);
+  --surface: oklch(0.18 0.065 299);
+  --surface-2: oklch(0.23 0.075 300);
+  --line: oklch(0.34 0.085 301);
+  --foreground: oklch(0.97 0.012 285);
+  --muted: oklch(0.23 0.075 300);
+  --muted-foreground: oklch(0.72 0.055 292);
 
-  --card: #111a1e;
-  --card-foreground: #eaf1ef;
-  --popover: #111a1e;
-  --popover-foreground: #eaf1ef;
+  --card: oklch(0.18 0.065 299);
+  --card-foreground: oklch(0.97 0.012 285);
+  --popover: oklch(0.18 0.065 299);
+  --popover-foreground: oklch(0.97 0.012 285);
 
-  --primary: #f5b301;
-  --primary-foreground: #0b1113;
-  --secondary: #162125;
-  --secondary-foreground: #eaf1ef;
-  --accent: #162125;
-  --accent-foreground: #f5b301;
+  --primary: oklch(0.68 0.25 349);
+  --primary-foreground: oklch(0.99 0.005 285);
+  --secondary: oklch(0.75 0.16 220);
+  --secondary-foreground: oklch(0.13 0.045 298);
+  --accent: oklch(0.23 0.075 300);
+  --accent-foreground: oklch(0.79 0.16 220);
 
-  --success: #2fbf71;
-  --warning: #f5b301;
-  --danger: #f0503c;
-  --destructive: #f0503c;
-  --destructive-foreground: #eaf1ef;
+  --success: oklch(0.72 0.18 154);
+  --warning: oklch(0.82 0.17 85);
+  --danger: oklch(0.65 0.23 24);
+  --destructive: oklch(0.65 0.23 24);
+  --destructive-foreground: oklch(0.97 0.012 285);
 
-  --border: #243138;
-  --input: #243138;
-  --ring: #f5b301;
+  --border: oklch(0.34 0.085 301);
+  --input: oklch(0.34 0.085 301);
+  --ring: oklch(0.75 0.16 220);
 }
 
 @theme inline {

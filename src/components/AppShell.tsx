@@ -4,6 +4,7 @@ import { LayoutGrid, Users, Trophy, Wallet, Bell, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
+import gspLogo from "@/assets/gsp-logo.png.asset.json";
 
 const nav = [
   { to: "/", rotulo: "Painel", Icone: LayoutGrid },
@@ -33,12 +34,10 @@ export function AppShell({ children }: { children: ReactNode }) {
       <header className="sticky top-0 z-20 bg-background/95 backdrop-blur border-b border-line">
         <div className="mx-auto flex max-w-3xl items-center justify-between px-4 h-14">
           <Link to="/" className="flex items-center gap-2.5">
-            <div className="size-8 grid place-items-center bg-primary text-primary-foreground font-display text-lg rounded-[6px]">
-              V
-            </div>
+            <img src={gspLogo.url} alt="GSP — Garotas Super Poderosas" className="size-9 rounded-full object-cover" />
             <div className="leading-none">
               <p className="font-display text-[15px] tracking-wide">
-                VOLLEY<span className="text-primary">OPS</span>
+                GSP <span className="text-secondary">VOLLEY</span><span className="text-primary">OPS</span>
               </p>
               <p className="font-mono text-[9px] text-muted-foreground mt-0.5 uppercase">
                 {papel ?? "gestão"} · temporada {new Date().getFullYear()}
