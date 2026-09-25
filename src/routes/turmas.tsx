@@ -28,6 +28,8 @@ export const Route = createFileRoute("/turmas")({
       },
       { property: "og:title", content: "Turmas — VolleyOps" },
       { property: "og:description", content: "Organize horários, professores e alunos das turmas." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => (

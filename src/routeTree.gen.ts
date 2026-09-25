@@ -12,8 +12,12 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AtletasRouteImport } from './routes/atletas'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as FinanceiroRouteImport } from './routes/financeiro'
+import { Route as MateriaisRouteImport } from './routes/materiais'
+import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as TorneiosRouteImport } from './routes/torneios'
 import { Route as TurmasRouteImport } from './routes/turmas'
+import { Route as UniformesRouteImport } from './routes/uniformes'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -30,6 +34,21 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FinanceiroRoute = FinanceiroRouteImport.update({
+  id: '/financeiro',
+  path: '/financeiro',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MateriaisRoute = MateriaisRouteImport.update({
+  id: '/materiais',
+  path: '/materiais',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const TorneiosRoute = TorneiosRouteImport.update({
   id: '/torneios',
   path: '/torneios',
@@ -40,43 +59,92 @@ const TurmasRoute = TurmasRouteImport.update({
   path: '/turmas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const UniformesRoute = UniformesRouteImport.update({
+  id: '/uniformes',
+  path: '/uniformes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/atletas': typeof AtletasRoute
   '/auth': typeof AuthRoute
+  '/financeiro': typeof FinanceiroRoute
+  '/materiais': typeof MateriaisRoute
+  '/perfil': typeof PerfilRoute
   '/torneios': typeof TorneiosRoute
   '/turmas': typeof TurmasRoute
+  '/uniformes': typeof UniformesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/atletas': typeof AtletasRoute
   '/auth': typeof AuthRoute
+  '/financeiro': typeof FinanceiroRoute
+  '/materiais': typeof MateriaisRoute
+  '/perfil': typeof PerfilRoute
   '/torneios': typeof TorneiosRoute
   '/turmas': typeof TurmasRoute
+  '/uniformes': typeof UniformesRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/atletas': typeof AtletasRoute
   '/auth': typeof AuthRoute
+  '/financeiro': typeof FinanceiroRoute
+  '/materiais': typeof MateriaisRoute
+  '/perfil': typeof PerfilRoute
   '/torneios': typeof TorneiosRoute
   '/turmas': typeof TurmasRoute
+  '/uniformes': typeof UniformesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/atletas' | '/auth' | '/torneios' | '/turmas'
+  fullPaths:
+    | '/'
+    | '/atletas'
+    | '/auth'
+    | '/financeiro'
+    | '/materiais'
+    | '/perfil'
+    | '/torneios'
+    | '/turmas'
+    | '/uniformes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/atletas' | '/auth' | '/torneios' | '/turmas'
-  id: '__root__' | '/' | '/atletas' | '/auth' | '/torneios' | '/turmas'
+  to:
+    | '/'
+    | '/atletas'
+    | '/auth'
+    | '/financeiro'
+    | '/materiais'
+    | '/perfil'
+    | '/torneios'
+    | '/turmas'
+    | '/uniformes'
+  id:
+    | '__root__'
+    | '/'
+    | '/atletas'
+    | '/auth'
+    | '/financeiro'
+    | '/materiais'
+    | '/perfil'
+    | '/torneios'
+    | '/turmas'
+    | '/uniformes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AtletasRoute: typeof AtletasRoute
   AuthRoute: typeof AuthRoute
+  FinanceiroRoute: typeof FinanceiroRoute
+  MateriaisRoute: typeof MateriaisRoute
+  PerfilRoute: typeof PerfilRoute
   TorneiosRoute: typeof TorneiosRoute
   TurmasRoute: typeof TurmasRoute
+  UniformesRoute: typeof UniformesRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -102,6 +170,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/financeiro': {
+      id: '/financeiro'
+      path: '/financeiro'
+      fullPath: '/financeiro'
+      preLoaderRoute: typeof FinanceiroRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materiais': {
+      id: '/materiais'
+      path: '/materiais'
+      fullPath: '/materiais'
+      preLoaderRoute: typeof MateriaisRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/torneios': {
       id: '/torneios'
       path: '/torneios'
@@ -116,6 +205,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TurmasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/uniformes': {
+      id: '/uniformes'
+      path: '/uniformes'
+      fullPath: '/uniformes'
+      preLoaderRoute: typeof UniformesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -123,8 +219,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AtletasRoute: AtletasRoute,
   AuthRoute: AuthRoute,
+  FinanceiroRoute: FinanceiroRoute,
+  MateriaisRoute: MateriaisRoute,
+  PerfilRoute: PerfilRoute,
   TorneiosRoute: TorneiosRoute,
   TurmasRoute: TurmasRoute,
+  UniformesRoute: UniformesRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

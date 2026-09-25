@@ -26,6 +26,8 @@ export const Route = createFileRoute("/atletas")({
       },
       { property: "og:title", content: "Atletas — VolleyOps" },
       { property: "og:description", content: "Cadastro e histórico dos atletas do time." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: () => (
