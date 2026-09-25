@@ -10,33 +10,73 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AtletasRouteImport } from './routes/atletas'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as TorneiosRouteImport } from './routes/torneios'
+import { Route as TurmasRouteImport } from './routes/turmas'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AtletasRoute = AtletasRouteImport.update({
+  id: '/atletas',
+  path: '/atletas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TorneiosRoute = TorneiosRouteImport.update({
+  id: '/torneios',
+  path: '/torneios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TurmasRoute = TurmasRouteImport.update({
+  id: '/turmas',
+  path: '/turmas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/atletas': typeof AtletasRoute
+  '/auth': typeof AuthRoute
+  '/torneios': typeof TorneiosRoute
+  '/turmas': typeof TurmasRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/atletas': typeof AtletasRoute
+  '/auth': typeof AuthRoute
+  '/torneios': typeof TorneiosRoute
+  '/turmas': typeof TurmasRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/atletas': typeof AtletasRoute
+  '/auth': typeof AuthRoute
+  '/torneios': typeof TorneiosRoute
+  '/turmas': typeof TurmasRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/atletas' | '/auth' | '/torneios' | '/turmas'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/atletas' | '/auth' | '/torneios' | '/turmas'
+  id: '__root__' | '/' | '/atletas' | '/auth' | '/torneios' | '/turmas'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AtletasRoute: typeof AtletasRoute
+  AuthRoute: typeof AuthRoute
+  TorneiosRoute: typeof TorneiosRoute
+  TurmasRoute: typeof TurmasRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +88,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/atletas': {
+      id: '/atletas'
+      path: '/atletas'
+      fullPath: '/atletas'
+      preLoaderRoute: typeof AtletasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/torneios': {
+      id: '/torneios'
+      path: '/torneios'
+      fullPath: '/torneios'
+      preLoaderRoute: typeof TorneiosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/turmas': {
+      id: '/turmas'
+      path: '/turmas'
+      fullPath: '/turmas'
+      preLoaderRoute: typeof TurmasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AtletasRoute: AtletasRoute,
+  AuthRoute: AuthRoute,
+  TorneiosRoute: TorneiosRoute,
+  TurmasRoute: TurmasRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
