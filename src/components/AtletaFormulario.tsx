@@ -27,16 +27,8 @@ export function AtletaFormulario({ atleta, turmas, torneios, opcoes, fechar }: {
   const salvar = useMutation({ mutationFn: async () => {
     const result = atletaSchema.safeParse(form); if (!result.success) { const next: Record<string,string> = {}; result.error.issues.forEach(issue => { next[String(issue.path[0])] = issue.message; }); setErros(next); throw new Error("Confira os campos destacados antes de salvar."); }
     const payload = { nome: form.nome.trim(), data_nascimento: dataISO(form.nascimento)!, status: form.status, posicoes: form.posicoes, categorias: form.categorias, possui_camiseta: form.possuiCamiseta, numero_camiseta: form.possuiCamiseta && form.numero ? Number(form.numero) : null, formulario_status: form.medico };
-    const create = !atleta;
-    const response = create ? await supabase.from("atletas").insert(payload).select("id").single() : await supabase.from("atletas").update(payload).eq("id", atleta.id).select("id").single();
-    if (response.error || !response.data) throw response.error ?? new Error("Falha ao salvar"); const id = response.data.id;
-    const privateData = { atleta_id: id, rg: form.rg.trim(), cpf: cpfDigitos(form.cpf) };
-    const priv = await supabase.from("atletas_privado").upsert(privateData); if (priv.error) throw priv.error;
-    // Preserve existing links when unchanged; change only the requested differences.
-    for (const [table, desired, previous, key] of [["atleta_turmas", form.turmas, atleta?.atleta_turmas?.map(t => t.turma_id) ?? [], "turma_id"], ["atleta_torneios", form.torneios, atleta?.atleta_torneios?.map(t => t.torneio_id) ?? [], "torneio_id"]] as const) {
-      for (const old of previous.filter(x => !desired.includes(x))) { const { error } = await supabase.from(table).delete().eq("atleta_id", id).eq(key, old); if (error) throw error; }
-      for (const added of desired.filter(x => !previous.includes(x))) { const { error } = await supabase.from(table).insert({ atleta_id: id, [key]: added }); if (error) throw error; }
-    }
+    const { data: id, error: saveError } = await supabase.rpc("salvar_cadastro_atleta", { _id: atleta?.id ?? null, _dados: payload, _rg: form.rg.trim(), _cpf: cpfDigitos(form.cpf), _turmas: form.turmas, _torneios: form.torneios });
+    if (saveError || !id) throw saveError ?? new Error("Falha ao salvar");
     if (foto || removerFoto) {
       if (foto) { const path = `${id}/${crypto.randomUUID()}.${foto.type === "image/png" ? "png" : "jpg"}`; const r = await supabase.storage.from("atletas-fotos").upload(path, foto); if (r.error) throw r.error; const u = await supabase.from("atletas").update({ foto_path: path, foto_nome: foto.name }).eq("id", id); if (u.error) throw u.error; }
       else { const u = await supabase.from("atletas").update({ foto_path: null, foto_nome: null }).eq("id", id); if (u.error) throw u.error; }
