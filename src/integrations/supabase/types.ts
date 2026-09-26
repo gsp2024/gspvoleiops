@@ -662,7 +662,6 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      atleta_professor: { Args: { _id: string }; Returns: boolean }
       compartilha_turma: { Args: { _atleta_id: string }; Returns: boolean }
       cpf_atleta_valido: { Args: { v: string }; Returns: boolean }
       has_role: {
