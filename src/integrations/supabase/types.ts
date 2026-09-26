@@ -673,6 +673,17 @@ export type Database = {
       }
       is_gestora: { Args: never; Returns: boolean }
       is_professor_da_turma: { Args: { _turma_id: string }; Returns: boolean }
+      salvar_cadastro_atleta: {
+        Args: {
+          _cpf: string
+          _dados: Json
+          _id: string
+          _rg: string
+          _torneios: string[]
+          _turmas: string[]
+        }
+        Returns: string
+      }
     }
     Enums: {
       app_role: "gestora" | "professor" | "atleta"
