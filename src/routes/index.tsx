@@ -68,7 +68,7 @@ function PainelGestora() {
         await Promise.all([
           supabase.from("cobrancas").select("*").order("vencimento"),
           supabase.from("movimentacoes_caixa").select("*").gte("data", inicioMes),
-          supabase.from("user_roles").select("user_id").eq("role", "atleta"),
+          supabase.from("atletas").select("id, nome, numero, posicoes, profile_id").is("deleted_at", null),
           supabase.from("turmas").select("*, matriculas(count)").order("nome"),
           supabase.from("torneios").select("*").order("data"),
           supabase.from("materiais").select("*").order("nome"),
@@ -179,14 +179,13 @@ function PainelGestora() {
         {data?.atletas.length ? (
           <ListaPanel>
             {data.atletas.slice(0, 3).map((a) => {
-              const emAtraso = atrasadas.some((c) => c.atleta_id === a.user_id);
-              const perfil = data.perfis.find((p) => p.id === a.user_id);
+              const emAtraso = atrasadas.some((c) => c.atleta_id === a.profile_id);
               return (
                 <ListRow
-                  key={a.user_id}
-                  inicial={(perfil?.nome || "A").charAt(0).toUpperCase()}
-                  titulo={perfil?.nome || "Atleta sem nome"}
-                  subtitulo={perfil?.posicao || "posição não informada"}
+                  key={a.id}
+                  inicial={(a.nome || "A").charAt(0).toUpperCase()}
+                  titulo={a.nome || "Atleta sem nome"}
+                  subtitulo={a.posicoes.join(", ") || "posição não informada"}
                   direita={
                     <Pill tom={emAtraso ? "perigo" : "sucesso"}>{emAtraso ? "Atrasado" : "Em dia"}</Pill>
                   }
