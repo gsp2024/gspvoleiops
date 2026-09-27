@@ -315,6 +315,36 @@ export type Database = {
           },
         ]
       }
+      importacoes_atletas: {
+        Row: {
+          arquivo_nome: string
+          created_at: string
+          criado_por: string | null
+          id: string
+          linhas: Json
+          modo: string
+          totais: Json
+        }
+        Insert: {
+          arquivo_nome: string
+          created_at?: string
+          criado_por?: string | null
+          id?: string
+          linhas?: Json
+          modo: string
+          totais?: Json
+        }
+        Update: {
+          arquivo_nome?: string
+          created_at?: string
+          criado_por?: string | null
+          id?: string
+          linhas?: Json
+          modo?: string
+          totais?: Json
+        }
+        Relationships: []
+      }
       inscricoes_torneio: {
         Row: {
           atleta_id: string
