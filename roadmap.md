@@ -9,3 +9,5 @@
 - [x] Cadastro de Atletas: dados, vínculos, permissões, histórico, lixeira e arquivos privados
 - [x] Cadastro de Atletas: telas, filtros, exportações e verificações
 - [ ] Integração automática das respostas do Google Forms (aguarda acesso ao formulário e autorização)
+- [x] Importação de atletas via Excel (análise, pré-visualização, modos, relatório, histórico)
+- [ ] Trocar o banco para a conta Supabase própria (aguarda decisão/ação da usuária: remix + conexão)

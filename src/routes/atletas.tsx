@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -48,7 +48,7 @@ function Atletas() {
   const atual = data?.atletas.find(a => a.id === selecionada);
   if (selecionada && (selecionada === "nova" || atual)) return <AtletaFormulario key={selecionada} {...(atual ? { atleta: atual } : {})} turmas={data?.turmas ?? []} torneios={data?.torneios ?? []} opcoes={opcoesData ?? data?.opcoes ?? []} fechar={() => setSelecionada(null)} />;
   return <div className="space-y-4">
-    <div className="rise flex items-end justify-between gap-2"><div><p className="label-mono">Cadastro</p><h1 className="font-display text-[26px] leading-none mt-1">Atletas</h1></div>{gestor && <button onClick={() => { setLixeira(false); setSelecionada("nova"); }} className="font-mono text-[10px] uppercase tracking-wide text-primary border border-primary/40 rounded-[7px] px-2.5 py-1.5">Nova atleta</button>}</div>
+    <div className="rise flex items-end justify-between gap-2"><div><p className="label-mono">Cadastro</p><h1 className="font-display text-[26px] leading-none mt-1">Atletas</h1></div>{gestor && <div className="flex gap-2"><Link to="/importar-atletas" className="font-mono text-[10px] uppercase tracking-wide text-secondary border border-line rounded-[7px] px-2.5 py-1.5">Importar via Excel</Link><button onClick={() => { setLixeira(false); setSelecionada("nova"); }} className="font-mono text-[10px] uppercase tracking-wide text-primary border border-primary/40 rounded-[7px] px-2.5 py-1.5">Nova atleta</button></div>}</div>
     <Panel className="space-y-3"><CampoTexto rotulo="Buscar por nome ou ID" value={f.busca} onChange={e => setF({...f,busca:e.target.value})} placeholder="Nome ou número" />
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
         <CampoSelect rotulo="Status" value={f.status} onChange={e => setF({...f,status:e.target.value})}><option value="">Todos</option><option value="ativa">Ativa</option><option value="inativa">Inativa</option></CampoSelect>

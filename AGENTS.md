@@ -11,4 +11,4 @@
 
 Use the existing TanStack routes, shared kit, Supabase client, and GSP theme tokens for athlete workflows — this keeps the new module consistent with the live app.
 Keep athlete records independent of login accounts with optional profile linkage, and store CPF/RG separately from sports data — this supports offline registrations without exposing private documents to staff.
-Use the atomic `salvar_cadastro_atleta` database function for personal, sports, and enrollment edits — this prevents partially saved athlete records.
+Use the atomic `salvar_cadastro_atleta` database function for personal, sports, and enrollment edits — this prevents partially saved athlete records.- Importação Excel de atletas é processada no navegador e grava só via salvar_cadastro_atleta; histórico em importacoes_atletas sem CPF/RG completos nem dados médicos — mantém regras e auditoria únicas.
