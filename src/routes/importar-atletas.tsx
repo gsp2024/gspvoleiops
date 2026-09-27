@@ -14,7 +14,7 @@ export const Route = createFileRoute("/importar-atletas")({
 });
 
 type Bruta = { linha: number; celulas: unknown[] };
-type Historico = { id: string; arquivo_nome: string; modo: string; created_at: string; totais: Record<string, number>; linhas: LinhaRelatorio[] };
+type Historico = { id: string; arquivo_nome: string; modo: string; created_at: string; totais: Partial<Record<"total"|"cadastradas"|"atualizadas"|"ignoradas"|"erros"|"pendentes"|"duplicidades", number>>; linhas: LinhaRelatorio[] };
 type LinhaRelatorio = { linha: number; nome: string; identificador: string; situacao: string; campo: string; motivo: string; acao: string };
 const TOM: Record<Situacao, "sucesso" | "alerta" | "perigo" | "neutro"> = { pronto: "sucesso", importada: "sucesso", atualizada: "sucesso", existente: "neutro", vazia: "neutro", pendente: "alerta", duplicidade: "alerta", erro: "perigo", falhou: "perigo" };
 const baixar = (blob: Blob, nome: string) => { const url = URL.createObjectURL(blob); const a = document.createElement("a"); a.href = url; a.download = nome; a.click(); setTimeout(() => URL.revokeObjectURL(url), 1000); };
@@ -85,10 +85,10 @@ function Importar() {
 
   const elegivel = (l: Linha) => (modo === "novas" ? l.situacao === "pronto" : l.situacao === "existente") || l.situacao === "falhou";
   const gravar = async (apenasFalhas = false) => {
-    if (!linhas || !ctx || !arquivo) return;
+    if (!linhas || !ctx || !arquivo) return undefined;
     const alvo = linhas.filter(l => apenasFalhas ? l.situacao === "falhou" : elegivel(l));
-    if (!alvo.length) return toast.error(modo === "novas" ? "Nenhuma atleta pronta para cadastrar." : "Nenhuma atleta existente encontrada para atualizar.");
-    if (!window.confirm(`${modo === "novas" ? "Cadastrar" : "Atualizar"} ${alvo.length} atleta(s) agora? Campos vazios na planilha não apagam dados já cadastrados.`)) return;
+    if (!alvo.length) return { toast.error(modo === "novas" ? "Nenhuma atleta pronta para cadastrar." : "Nenhuma atleta existente encontrada para atualizar."); return undefined; }
+    if (!window.confirm(`${modo === "novas" ? "Cadastrar" : "Atualizar"} ${alvo.length} atleta(s) agora? Campos vazios na planilha não apagam dados já cadastrados.`)) return undefined;
     const novo = [...linhas];
     for (let i = 0; i < alvo.length; i++) {
       const l = alvo[i]!; setOcupado(`Salvando ${i + 1} de ${alvo.length}…`);
@@ -106,6 +106,7 @@ function Importar() {
     void qc.invalidateQueries({ queryKey: ["atletas"] }); void qc.invalidateQueries({ queryKey: ["importacoes"] });
     toast.success(`${totais.cadastradas} cadastrada(s), ${totais.atualizadas} atualizada(s), ${conta("falhou")} não salva(s).`);
     try { setCtx(await carregarContexto()); } catch { /* segue com o contexto anterior */ }
+    return undefined;
   };
 
   const conta = (s: Situacao) => linhas?.filter(l => l.situacao === s).length ?? 0;
