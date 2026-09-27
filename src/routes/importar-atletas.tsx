@@ -62,17 +62,13 @@ function Importar() {
     try {
       const XLSX = await import("xlsx"); const wb = XLSX.read(await f.arrayBuffer(), { cellDates: true });
       const ws = wb.Sheets[wb.SheetNames[0]!]!;
-      const matriz = XLSX.utils.sheet_to_json<unknown[]>(ws, { header: 1, blankrows: false, defval: null, raw: true });
-      const idx = matriz.findIndex(r => r.filter(c => c !== null && String(c).trim()).length >= 2);
-      if (idx < 0) { toast.error("Não encontramos dados nesta planilha. Confira se a primeira aba tem os cabeçalhos e as atletas."); return setArquivo(null); }
-      const cab = (matriz[idx] ?? []).map((c, i) => (c === null || String(c).trim() === "" ? `Coluna ${i + 1}` : String(c).trim()));
-      const rows: Bruta[] = []; const rangeStart = XLSX.utils.decode_range(ws["!ref"] ?? "A1").s.r;
-      // sheet_to_json com blankrows:false perde a numeração; reconstituímos pela posição real
-      const comNumero = XLSX.utils.sheet_to_json<Record<string, unknown>>(ws, { header: 1, blankrows: false, defval: null, raw: true, rawNumbers: true }) as unknown as unknown[][];
-      void comNumero;
-      let linhaExcel = rangeStart + 1;
       const todas = XLSX.utils.sheet_to_json<unknown[]>(ws, { header: 1, blankrows: true, defval: null, raw: true });
-      todas.forEach((r, i) => { linhaExcel = rangeStart + i + 1; if (i <= rangeStart + idx - rangeStart && i <= todas.indexOf(matriz[idx]!)) return; if (r.some(c => c !== null && String(c).trim() !== "")) rows.push({ linha: linhaExcel, celulas: r }); });
+      const inicio = XLSX.utils.decode_range(ws["!ref"] ?? "A1").s.r;
+      const idx = todas.findIndex(r => r.filter(c => c !== null && String(c).trim()).length >= 2);
+      if (idx < 0) { toast.error("Não encontramos dados nesta planilha. Confira se a primeira aba tem os cabeçalhos e as atletas."); return setArquivo(null); }
+      const cab = (todas[idx] ?? []).map((c, i) => (c === null || String(c).trim() === "" ? `Coluna ${i + 1}` : String(c).trim()));
+      const rows: Bruta[] = [];
+      todas.forEach((r, i) => { if (i > idx && r.some(c => c !== null && String(c).trim() !== "")) rows.push({ linha: inicio + i + 1, celulas: r }); });
       setArquivo(f); setCabecalhos(cab); setBrutas(rows); setMapa(autoMapear(cab));
       toast.success(`Planilha lida: ${rows.length} linha(s) encontradas. Confira as colunas e clique em Analisar.`);
     } catch { toast.error("Não conseguimos ler este arquivo. Confira se ele abre normalmente no Excel e tente novamente."); setArquivo(null); }
