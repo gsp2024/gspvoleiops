@@ -13,7 +13,7 @@ import { BotaoPrimario, CampoSelect, CampoTexto, ListRow, ListaPanel, Panel, Pil
 
 type Atleta = Tables<"atletas"> & { atletas_privado?: Tables<"atletas_privado"> | null; atleta_turmas?: { turma_id: string }[]; atleta_torneios?: { torneio_id: string }[] };
 export const Route = createFileRoute("/atletas")({
-  head: () => ({ meta: [{ title: "Atletas — VolleyOps" }, { name: "description", content: "Cadastro e acompanhamento de atletas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
+  head: () => ({ meta: [{ title: "Atletas — VolleyOps" }, { name: "description", content: "Cadastro e acompanhamento de atletas." }, { property: "og:title", content: "Atletas — VolleyOps" }, { property: "og:description", content: "Cadastro e acompanhamento de atletas." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
   component: () => <Protegido><Atletas /></Protegido>,
 });
 const empty = { busca: "", status: "", categoria: "", posicao: "", turma: "", torneio: "", idadeMin: "", idadeMax: "", camiseta: "", medico: "" };
