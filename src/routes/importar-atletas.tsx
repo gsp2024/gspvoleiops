@@ -87,7 +87,7 @@ function Importar() {
   const gravar = async (apenasFalhas = false) => {
     if (!linhas || !ctx || !arquivo) return undefined;
     const alvo = linhas.filter(l => apenasFalhas ? l.situacao === "falhou" : elegivel(l));
-    if (!alvo.length) return { toast.error(modo === "novas" ? "Nenhuma atleta pronta para cadastrar." : "Nenhuma atleta existente encontrada para atualizar."); return undefined; }
+    if (!alvo.length) { toast.error(modo === "novas" ? "Nenhuma atleta pronta para cadastrar." : "Nenhuma atleta existente encontrada para atualizar."); return undefined; }
     if (!window.confirm(`${modo === "novas" ? "Cadastrar" : "Atualizar"} ${alvo.length} atleta(s) agora? Campos vazios na planilha não apagam dados já cadastrados.`)) return undefined;
     const novo = [...linhas];
     for (let i = 0; i < alvo.length; i++) {
