@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Link, useNavigate, useRouterState } from "@tanstack/react-router";
-import { LayoutGrid, Users, Trophy, Wallet, Bell, LogOut } from "lucide-react";
+import { LayoutGrid, UserRound, Users, Trophy, Wallet, Bell, LogOut } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
@@ -8,6 +8,7 @@ import gspLogo from "@/assets/gsp-logo.png.asset.json";
 
 const nav = [
   { to: "/", rotulo: "Painel", Icone: LayoutGrid },
+  { to: "/atletas", rotulo: "Atletas", Icone: UserRound },
   { to: "/turmas", rotulo: "Turmas", Icone: Users },
   { to: "/torneios", rotulo: "Torneios", Icone: Trophy },
   { to: "/financeiro", rotulo: "Caixa", Icone: Wallet },
@@ -77,7 +78,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <main className="mx-auto max-w-3xl px-4 pt-4 pb-28 space-y-4">{children}</main>
 
       <nav className="fixed bottom-0 inset-x-0 z-20 bg-surface border-t border-line">
-        <div className="mx-auto max-w-3xl grid grid-cols-4 h-16">
+         <div className="mx-auto max-w-3xl grid grid-cols-5 h-16">
           {nav.map(({ to, rotulo, Icone }) => {
             const ativo = to === "/" ? pathname === "/" : pathname.startsWith(to);
             return (

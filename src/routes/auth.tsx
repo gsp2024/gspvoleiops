@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable/index";
 import { useAuth } from "@/lib/auth";
 import { BotaoPrimario, CampoSelect, CampoTexto } from "@/components/kit";
+import { Button } from "@/components/ui/button";
 import gspLogo from "@/assets/gsp-logo.png.asset.json";
 
 export const Route = createFileRoute("/auth")({
@@ -31,6 +33,7 @@ function AuthPage() {
   const [modo, setModo] = useState<"entrar" | "criar">("entrar");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [mostrarSenha, setMostrarSenha] = useState(false);
   const [nome, setNome] = useState("");
   const [perfil, setPerfil] = useState("atleta");
   const [carregando, setCarregando] = useState(false);
@@ -133,15 +136,33 @@ function AuthPage() {
             placeholder="voce@email.com"
             required
           />
-          <CampoTexto
-            rotulo="Senha"
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            placeholder="••••••••"
-            minLength={6}
-            required
-          />
+          <div>
+            <label htmlFor="senha" className="label-mono">Senha</label>
+            <div className="relative mt-1">
+              <input
+                id="senha"
+                type={mostrarSenha ? "text" : "password"}
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+                placeholder="••••••••"
+                minLength={6}
+                required
+                className="w-full rounded-[8px] bg-surface-2 border border-line pl-3 pr-28 py-2.5 text-[13px] text-foreground placeholder:text-muted-foreground outline-none focus:border-primary"
+              />
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                onClick={() => setMostrarSenha((valor) => !valor)}
+                aria-label={mostrarSenha ? "Ocultar senha" : "Mostrar senha"}
+                aria-pressed={mostrarSenha}
+                className="absolute right-1 top-1/2 -translate-y-1/2 h-8 gap-1.5 px-2 text-xs text-muted-foreground hover:text-foreground"
+              >
+                {mostrarSenha ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                {mostrarSenha ? "Ocultar" : "Mostrar"}
+              </Button>
+            </div>
+          </div>
           <BotaoPrimario type="submit" disabled={carregando}>
             {carregando ? "Aguarde…" : modo === "entrar" ? "Entrar" : "Criar conta"}
           </BotaoPrimario>
