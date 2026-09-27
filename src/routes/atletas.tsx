@@ -46,7 +46,7 @@ function Atletas() {
       (!f.camiseta || a.possui_camiseta === (f.camiseta === "sim")) && (!f.medico || (a.formulario_status === "preenchido") === (f.medico === "sim"));
   });
   const atual = data?.atletas.find(a => a.id === selecionada);
-  if (selecionada && (selecionada === "nova" || atual)) return <AtletaFormulario key={selecionada} atleta={atual} turmas={data?.turmas ?? []} torneios={data?.torneios ?? []} opcoes={opcoesData ?? data?.opcoes ?? []} fechar={() => setSelecionada(null)} />;
+  if (selecionada && (selecionada === "nova" || atual)) return <AtletaFormulario key={selecionada} {...(atual ? { atleta: atual } : {})} turmas={data?.turmas ?? []} torneios={data?.torneios ?? []} opcoes={opcoesData ?? data?.opcoes ?? []} fechar={() => setSelecionada(null)} />;
   return <div className="space-y-4">
     <div className="rise flex items-end justify-between gap-2"><div><p className="label-mono">Cadastro</p><h1 className="font-display text-[26px] leading-none mt-1">Atletas</h1></div>{gestor && <button onClick={() => { setLixeira(false); setSelecionada("nova"); }} className="font-mono text-[10px] uppercase tracking-wide text-primary border border-primary/40 rounded-[7px] px-2.5 py-1.5">Nova atleta</button>}</div>
     <Panel className="space-y-3"><CampoTexto rotulo="Buscar por nome ou ID" value={f.busca} onChange={e => setF({...f,busca:e.target.value})} placeholder="Nome ou número" />

@@ -22,7 +22,7 @@ export function dataISO(value: string) {
 export const dataTela = (iso: string | null) => iso ? iso.slice(0, 10).split("-").reverse().join("/") : "";
 export function idade(iso: string | null, hoje = new Date()) {
   if (!iso) return null;
-  const [ano, mes, dia] = iso.split("-").map(Number);
+  const [ano = 0, mes = 0, dia = 0] = iso.split("-").map(Number);
   return hoje.getFullYear() - ano - (hoje.getMonth() + 1 < mes || (hoje.getMonth() + 1 === mes && hoje.getDate() < dia) ? 1 : 0);
 }
 export const atletaSchema = z.object({
