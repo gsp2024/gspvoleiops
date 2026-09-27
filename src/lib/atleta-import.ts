@@ -68,7 +68,7 @@ function casarOpcao(token: string, opcoes: string[], tipo: string) {
   return opcoes.find(o => colado(o) === t) ?? (tipo === "categoria" ? opcoes.find(o => colado(o) === `master${t}`) : undefined);
 }
 const dividir = (v: unknown) => String(v ?? "").split(/[/,;+]| e /i).map(x => x.trim()).filter(Boolean);
-export const mascararCpf = (cpf: string) => `CPF •••.•••.•${cpf.slice(8, 9)}${cpf.slice(9, 10) ? "" : ""}-${cpf.slice(9)}`;
+export const mascararCpf = (cpf: string) => `CPF final ${cpf.slice(-4)}`;
 
 export function analisar(linhasBrutas: { linha: number; celulas: unknown[] }[], mapa: CampoImport[], ctx: Contexto, modo: "novas" | "atualizar"): Linha[] {
   const opc = (tipo: string) => ctx.opcoes.filter(o => o.tipo === tipo).map(o => o.nome);
