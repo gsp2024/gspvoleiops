@@ -10,4 +10,5 @@
 - [x] Cadastro de Atletas: telas, filtros, exportações e verificações
 - [ ] Integração automática das respostas do Google Forms (aguarda acesso ao formulário e autorização)
 - [x] Importação de atletas via Excel (análise, pré-visualização, modos, relatório, histórico)
+- [x] Mostrar/ocultar senha na tela de acesso e Atletas ao lado de Painel na navegação inferior
 - [ ] Trocar o banco para a conta Supabase própria (aguarda decisão/ação da usuária: remix + conexão)
