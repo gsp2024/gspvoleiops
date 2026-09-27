@@ -27,7 +27,7 @@ export function AtletaFormulario({ atleta, turmas, torneios, opcoes, fechar }: {
   const salvar = useMutation({ mutationFn: async () => {
     const result = atletaSchema.safeParse(form); if (!result.success) { const next: Record<string,string> = {}; result.error.issues.forEach(issue => { next[String(issue.path[0])] = issue.message; }); setErros(next); throw new Error("Confira os campos destacados antes de salvar."); }
     const payload = { nome: form.nome.trim(), data_nascimento: dataISO(form.nascimento)!, status: form.status, posicoes: form.posicoes, categorias: form.categorias, possui_camiseta: form.possuiCamiseta, numero_camiseta: form.possuiCamiseta && form.numero ? Number(form.numero) : null, formulario_status: form.medico };
-    const { data: id, error: saveError } = await supabase.rpc("salvar_cadastro_atleta", { _id: atleta?.id ?? null, _dados: payload, _rg: form.rg.trim(), _cpf: cpfDigitos(form.cpf), _turmas: form.turmas, _torneios: form.torneios });
+    const { data: id, error: saveError } = await supabase.rpc("salvar_cadastro_atleta", { _id: (atleta?.id ?? null) as string, _dados: payload, _rg: form.rg.trim(), _cpf: cpfDigitos(form.cpf), _turmas: form.turmas, _torneios: form.torneios });
     if (saveError || !id) throw saveError ?? new Error("Falha ao salvar");
     if (foto || removerFoto) {
       if (foto) { const path = `${id}/${crypto.randomUUID()}.${foto.type === "image/png" ? "png" : "jpg"}`; const r = await supabase.storage.from("atletas-fotos").upload(path, foto); if (r.error) throw r.error; const u = await supabase.from("atletas").update({ foto_path: path, foto_nome: foto.name }).eq("id", id); if (u.error) throw u.error; }
